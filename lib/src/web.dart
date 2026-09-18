@@ -11,10 +11,17 @@ class TotalCompress extends TotalCompressBase {
   @override
   Future<Uint8List> process(Uint8List source) {
     final promise = Completer<Uint8List>();
+    final workerUrl = Uri.base.resolve('assets/packages/total_image_compress/assets/worker.mjs');
+
     final worker = web.Worker(
-      './assets/packages/total_image_compress/assets/worker.mjs'.toJS,
+      workerUrl.toString().toJS,
       web.WorkerOptions(type: 'module'),
     );
+
+    void completeError(Object error, [StackTrace? stackTrace]) {
+      worker.terminate();
+      if (!promise.isCompleted) promise.completeError(error, stackTrace);
+    }
 
     worker.addEventListener(
       'message',
@@ -23,14 +30,21 @@ class TotalCompress extends TotalCompressBase {
 
         if (data is Uint8List) {
           worker.terminate();
-          promise.complete(data);
+          if (!promise.isCompleted) promise.complete(data);
         }
       }.toJS,
     );
 
+    worker.addEventListener(
+      'error',
+      (web.ErrorEvent event) {
+        completeError(Exception('Image worker failed: ${event.message}'));
+      }.toJS,
+    );
+
     final type = switch (format) {
-      ImageFormat.jpg => 'image/jpeg',
-      ImageFormat.png => 'image/png',
+      .jpg => 'image/jpeg',
+      .png => 'image/png',
     };
 
     final task = {
@@ -40,7 +54,7 @@ class TotalCompress extends TotalCompressBase {
       'maxHeight': maxHeight,
     };
 
-    worker.postMessage(task.jsify(), [source.buffer.toJS].toJS);
+    worker.postMessage(task.jsify());
     return promise.future;
   }
 }
