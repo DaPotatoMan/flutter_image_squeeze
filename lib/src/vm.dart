@@ -43,10 +43,10 @@ class TotalCompress extends TotalCompressBase {
 
     // Convert to format
     switch (format) {
-      case ImageFormat.jpg:
+      case .jpg:
         cmd.encodeJpg(quality: quality);
 
-      default:
+      case .png:
         cmd.encodePng();
     }
 
@@ -58,7 +58,7 @@ class TotalCompress extends TotalCompressBase {
   }
 
   @override
-  process(source) async {
+  Future<Uint8List> process(Uint8List source) async {
     if (Platform.isAndroid || Platform.isIOS) return _processMobile(source);
     return _processDesktop(source);
   }

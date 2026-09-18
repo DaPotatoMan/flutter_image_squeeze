@@ -9,7 +9,7 @@ class TotalCompress extends TotalCompressBase {
   TotalCompress({super.format, super.maxHeight, super.quality});
 
   @override
-  process(source) {
+  Future<Uint8List> process(Uint8List source) {
     final promise = Completer<Uint8List>();
     final worker = web.Worker(
       './assets/packages/total_image_compress/assets/worker.mjs'.toJS,

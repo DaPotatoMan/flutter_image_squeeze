@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:total_image_compress/src/core.dart';
 
 class TotalCompress extends TotalCompressBase {
@@ -6,5 +8,5 @@ class TotalCompress extends TotalCompressBase {
   }
 
   @override
-  process(source) => throw UnimplementedError();
+  Future<Uint8List> process(Uint8List source) => throw UnimplementedError();
 }
