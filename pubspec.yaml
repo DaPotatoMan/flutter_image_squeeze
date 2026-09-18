@@ -1,7 +1,11 @@
 name: image_squeeze
-description: A Flutter package for fast image compression
+description: A simple Flutter package for resizing and compressing image bytes.
 version: 0.0.1
 homepage: https://github.com/DaPotatoMan/image_squeeze
+topics:
+  - image-compression
+  - image-processing
+  - image-resize
 
 environment:
   sdk: ">=3.10.0"
