@@ -51,6 +51,17 @@ JPEG is the safest choice for both input and output on every supported platform.
 
 Other input formats may work too, but support varies by platform and browser. If your app needs predictable results everywhere, use JPEG input.
 
+## Benchmarks
+
+Run the included benchmark suite from the package root:
+
+```bash
+flutter test benchmark/image_squeeze_benchmark.dart --reporter expanded
+```
+
+It warms up the image processor, then reports the average processing time and output size for JPEG and PNG conversions using the bundled sample image.
+
+
 ## Acknowledgements
 
 Thanks to [fast_image_compress](https://pub.dev/packages/fast_image_compress) for the mobile compression backend and [image](https://pub.dev/packages/image) for desktop image processing.
