@@ -3,10 +3,10 @@ import 'dart:typed_data';
 
 import 'package:fast_image_compress/fast_image_compress.dart' deferred as fast_img;
 import 'package:image/image.dart' as image;
-import 'package:total_image_compress/src/core.dart';
+import 'package:image_squeeze/src/core.dart';
 
-class TotalCompress extends TotalCompressBase {
-  TotalCompress({super.format, super.maxHeight, super.quality});
+class ImageSqueeze extends ImageSqueezeBase {
+  ImageSqueeze({super.format, super.maxHeight, super.quality});
 
   Future<image.Image> _parseImage(Uint8List source) async {
     final decoder = await (image.Command()..decodeImage(source)).executeThread();

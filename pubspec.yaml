@@ -1,7 +1,7 @@
-name: total_image_compress
+name: image_squeeze
 description: A Flutter package for fast image compression
 version: 0.0.1
-homepage: https://github.com/DaPotatoMan/total_image_compress
+homepage: https://github.com/DaPotatoMan/image_squeeze
 
 environment:
   sdk: ">=3.10.0"

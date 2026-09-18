@@ -1,1 +1,1 @@
-### total_image_compress
+### image_squeeze

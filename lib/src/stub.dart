@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:total_image_compress/src/core.dart';
+import 'package:image_squeeze/src/core.dart';
 
-class TotalCompress extends TotalCompressBase {
-  TotalCompress({super.format, super.maxHeight, super.quality}) {
+class ImageSqueeze extends ImageSqueezeBase {
+  ImageSqueeze({super.format, super.maxHeight, super.quality}) {
     throw UnimplementedError();
   }
 

@@ -2,16 +2,16 @@ import 'dart:async';
 import 'dart:js_interop';
 import 'dart:typed_data';
 
-import 'package:total_image_compress/src/core.dart';
+import 'package:image_squeeze/src/core.dart';
 import 'package:web/web.dart' as web;
 
-class TotalCompress extends TotalCompressBase {
-  TotalCompress({super.format, super.maxHeight, super.quality});
+class ImageSqueeze extends ImageSqueezeBase {
+  ImageSqueeze({super.format, super.maxHeight, super.quality});
 
   @override
   Future<Uint8List> process(Uint8List source) {
     final promise = Completer<Uint8List>();
-    final workerUrl = Uri.base.resolve('assets/packages/total_image_compress/assets/worker.mjs');
+    final workerUrl = Uri.base.resolve('assets/packages/image_squeeze/assets/worker.mjs');
 
     final worker = web.Worker(
       workerUrl.toString().toJS,
