@@ -6,49 +6,52 @@ analyzer:
     strict-inference: true
     strict-raw-types: true
 
-  plugins:
-    - custom_lint
-
   errors:
-    invalid_annotation_target: ignore
     close_sinks: ignore
     missing_required_param: error
-    missing_return: info
+    missing_return: error
     record_literal_one_positional_no_trailing_comma: error
     collection_methods_unrelated_type: warning
     unrelated_type_equality_checks: warning
-    omit_local_variable_types: info
 
   exclude:
-    - "**/*.g.dart"
-    - "**/*.mapper.dart"
+    - test/.test_coverage.dart
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 
 formatter:
-  page_width: 132
+  page_width: 120
   trailing_commas: preserve
 
 linter:
   rules:
-    # - always_declare_return_types
+    - initialize_in_field_declaration
+    - unnecessary_const_in_enum_constructor
+    - unnecessary_primary_constructor_body
+    - use_declaring_parameters
+    - always_declare_return_types
     - always_put_required_named_parameters_first
     - always_use_package_imports
-    # - annotate_overrides
+    - annotate_overrides
     - avoid_bool_literals_in_conditional_expressions
-    # - avoid_catches_without_on_clauses
-    # - avoid_catching_errors
+    - avoid_catching_errors
     - avoid_double_and_int_checks
     - avoid_dynamic_calls
     - avoid_empty_else
     - avoid_equals_and_hash_code_on_mutable_classes
     - avoid_escaping_inner_quotes
-    # - avoid_field_initializers_in_const_classes
+    - avoid_field_initializers_in_const_classes
     - avoid_final_parameters
     - avoid_function_literals_in_foreach_calls
     - avoid_init_to_null
     - avoid_js_rounded_ints
+    - avoid_multiple_declarations_per_line
     - avoid_positional_boolean_parameters
-    # - avoid_print
-    - avoid_private_typedef_functions
     - avoid_redundant_argument_values
     - avoid_relative_lib_imports
     - avoid_renaming_method_parameters
@@ -59,10 +62,9 @@ linter:
     - avoid_shadowing_type_parameters
     - avoid_single_cascade_in_expression_statements
     - avoid_slow_async_io
-    # - avoid_type_to_string
-    # - avoid_types_as_parameter_names
+    - avoid_type_to_string
+    - avoid_types_as_parameter_names
     - avoid_unnecessary_containers
-    # - avoid_unused_constructor_parameters
     - avoid_void_async
     - avoid_web_libraries_in_flutter
     - await_only_futures
@@ -84,14 +86,14 @@ linter:
     - deprecated_member_use_from_same_package
     - directives_ordering
     - discarded_futures
-    # - document_ignores
+    - document_ignores
     - empty_catches
     - empty_constructor_bodies
     - empty_statements
     - eol_at_end_of_file
     - exhaustive_cases
     - file_names
-    # - flutter_style_todos
+    - flutter_style_todos
     - hash_and_equals
     - implicit_call_tearoffs
     - implementation_imports
@@ -102,11 +104,13 @@ linter:
     - leading_newlines_in_multiline_strings
     - library_annotations
     - library_prefixes
+    - library_private_types_in_public_api
     - literal_only_boolean_expressions
     - matching_super_parameters
     - missing_code_block_language_in_doc_comment
     - missing_whitespace_between_adjacent_strings
     - no_adjacent_strings_in_list
+    - no_default_cases
     - no_duplicate_case_values
     - no_leading_underscores_for_library_prefixes
     - no_leading_underscores_for_local_identifiers
@@ -119,11 +123,11 @@ linter:
     - noop_primitive_operations
     - null_check_on_nullable_type_parameter
     - null_closures
-    # - omit_local_variable_types
-    - one_member_abstracts
+    - omit_local_variable_types
     - only_throw_errors
     - overridden_fields
     - package_names
+    - parameter_assignments
     - prefer_adjacent_string_concatenation
     - prefer_asserts_in_initializer_lists
     - prefer_asserts_with_message
@@ -146,6 +150,7 @@ linter:
     - prefer_if_null_operators
     - prefer_initializing_formals
     - prefer_inlined_adds
+    - prefer_int_literals
     - prefer_interpolation_to_compose_strings
     - prefer_is_empty
     - prefer_is_not_empty
@@ -167,17 +172,17 @@ linter:
     - sort_constructors_first
     - sort_pub_dependencies
     - sort_unnamed_constructors_first
-    # - specify_nonobvious_property_types
+    - specify_nonobvious_property_types
     - strict_top_level_inference
     - switch_on_type
     - test_types_in_equals
     - throw_in_finally
     - tighten_type_of_initializing_formals
+    - type_annotate_public_apis
     - type_init_formals
     - type_literal_in_constant_pattern
     - unawaited_futures
     - unintended_html_in_doc_comment
-    - unnecessary_await_in_return
     - unnecessary_breaks
     - unnecessary_brace_in_string_interps
     - unnecessary_const
@@ -204,8 +209,8 @@ linter:
     - unnecessary_to_list_in_spreads
     - unnecessary_unawaited
     - unnecessary_underscores
-    - unreachable_from_main
     - unrelated_type_equality_checks
+    - use_build_context_synchronously
     - use_colored_box
     - use_enums
     - use_full_hex_values_for_flutter_colors
@@ -218,6 +223,7 @@ linter:
     - use_raw_strings
     - use_rethrow_when_possible
     - use_setters_to_change_properties
+    - use_string_buffers
     - use_string_in_part_of_directives
     - use_super_parameters
     - use_test_throws_matchers
