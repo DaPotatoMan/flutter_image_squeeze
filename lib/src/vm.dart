@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:fast_image_compress/fast_image_compress.dart' deferred as fast_img;
+import 'package:flutter_image_compress/flutter_image_compress.dart' deferred as native;
 import 'package:image/image.dart' as image;
 import 'package:image_squeeze/src/core.dart';
+
+/// Large enough that the native scaler never shrinks an image when no [ImageSqueezeBase.maxHeight] is set
+const int _unboundedHeight = 1 << 16;
 
 class ImageSqueeze extends ImageSqueezeBase {
   ImageSqueeze({super.format, super.maxHeight, super.quality});
@@ -16,22 +19,23 @@ class ImageSqueeze extends ImageSqueezeBase {
     return input;
   }
 
+  /// Decodes, resizes and encodes natively on a background thread, so the UI never freezes.
+  /// No Dart-side decode: the native side knows the size (and EXIF orientation) on its own.
   Future<Uint8List> _processMobile(Uint8List source) async {
-    await fast_img.loadLibrary();
+    await native.loadLibrary();
 
-    final input = await _parseImage(source);
-    final maxWidth = maxHeight == null ? input.width : (input.width * (maxHeight! / input.height)).round();
-
-    final compressor = fast_img.FastImageCompress();
-    final output = await compressor.compressImage(
+    // The native scaler keeps the image at least minWidth x minHeight and never upscales.
+    // A 1px minimum width leaves the height as the only bound.
+    return native.FlutterImageCompress.compressWithList(
+      source,
+      minWidth: 1,
+      minHeight: maxHeight ?? _unboundedHeight,
       quality: quality,
-      targetWidth: maxWidth,
-      imageData: source,
-      imageQuality: fast_img.ImageQuality.high,
+      format: switch (format) {
+        .jpg => native.CompressFormat.jpeg,
+        .png => native.CompressFormat.png,
+      },
     );
-
-    if (output == null) throw Exception('Failed to compress image');
-    return output;
   }
 
   Future<Uint8List> _processDesktop(Uint8List source) async {
