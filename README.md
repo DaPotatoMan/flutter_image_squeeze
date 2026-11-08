@@ -44,8 +44,8 @@ JPEG is the safest choice for both input and output on every supported platform.
 
 | Platform | JPEG | PNG | Notes |
 | --- | --- | --- | --- |
-| Android | Yes | Yes | Uses the native compressor, then converts to PNG when requested. |
-| iOS | Yes | Yes | Uses the native compressor, then converts to PNG when requested. |
+| Android | Yes | Yes | Native compressor on a background thread. Applies EXIF rotation. |
+| iOS | Yes | Yes | Native compressor on a background thread. Applies EXIF orientation. |
 | Windows, macOS, Linux | Yes | Yes | PNG is lossless. |
 | Web | Yes | Yes | Works in modern browsers. |
 
@@ -64,7 +64,7 @@ It warms up the image processor, then reports the average processing time and ou
 
 ## Acknowledgements
 
-Thanks to [fast_image_compress](https://pub.dev/packages/fast_image_compress) for the mobile compression backend and [image](https://pub.dev/packages/image) for desktop image processing.
+Thanks to [flutter_image_compress](https://pub.dev/packages/flutter_image_compress) for the mobile compression backend and [image](https://pub.dev/packages/image) for desktop image processing.
 
 ## License
 
